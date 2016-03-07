@@ -1,0 +1,120 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="main.master.cs" Inherits="MasterPage" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="text/javascript" src="Scripts/jquery-1.4.1.js"></script>
+    <script type="text/javascript" src="Scripts/fade.js"></script>
+    <script type="text/javascript">
+        function Checktoday() {
+            var today = new Date();
+            var todayy = today.getYear();
+            if (todayy < 1000)
+                todayy += 1900;
+            var todaym = today.getMonth();
+            var todayd = today.getDate();
+            document.write("今天是:  " + todayy + "/" + (todaym + 1) + "/" + todayd);
+        }
+        function countdown(yr, m, d) {
+            var returndate;
+            var montharray = new Array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
+            var today = new Date();
+            var todayy = today.getYear();
+            if (todayy < 1000)
+                todayy += 1900;
+            var todaym = today.getMonth();
+            var todayd = today.getDate();
+            var todaystring = montharray[todaym] + " " + todayd + ", " + todayy;
+            var futurestring = montharray[m - 1] + " " + d + ", " + yr;
+            var difference = (Math.round((Date.parse(futurestring) - Date.parse(todaystring)) / (24 * 60 * 60 * 1000)) * 1);
+            if (difference == 0)
+                returndate = "大会<font color=YellowGreen>今天</font>开始";
+            else if (difference == 1)
+                returndate = "大会<font color=YellowGreen>明天</font>即将开始";
+            else if (difference > 1)
+                returndate = "<font color='YellowGreen'>" + difference + "</font> days left ";
+            else
+                returndate = "<b style='color=YellowGreen'>大会已经开始<b/>";
+            return returndate;
+        }
+    </script>
+    <title>2014 WISA</title>
+    <link href="css/main_en.css" rel="stylesheet" type="text/css" media="screen" />
+</head>
+<body>
+    <div id="container">
+        <div id="logotip">
+            <h1 id="logo_en"><a href="../web/index.aspx" title="2014 WISA"></a></h1>
+        </div>
+        <div id="main">
+            <table border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <!--导航栏-->
+                    <td class="main_nav">
+                        <div id="navlist">
+                            <ul>
+                                <%--<li><a title="Today" href="#">
+                                    <script type="text/javascript">today()</script>
+                                </a></li>--%>
+                                <li><a title="Today" href="#">
+                                    <script type="text/javascript">document.write(countdown(2014, 9, 12));</script>
+                                </a></li>
+                                <li><a title="English" href="../web/index.aspx">中文&laquo;</a> </li>
+                                <li><a title="overview" href="../web/index_en.aspx">HOME&laquo;</a> </li>
+                                <li><a title="host" href="../web/host_en.aspx">Host&laquo;</a> </li>
+                                <li><a title="orgazination" href="../web/orgazination_en.aspx">Orgazination&laquo;</a></li>
+                                <li><a title="officers" href="../web/officers_en.aspx">Officers&laquo;</a> </li>
+                                <li id="con1"><a title="papers" href="#">Call For Papers&laquo;</a>
+                                    <ul style="display: none;" id="u1">
+                                        <li><a title="call for papers: WISA 2014" href="../web/wisa_cfp_en.aspx">WISA 2014 CFP</a></li>
+                                        <li><a title="call for papers: SWON 2014" href="../web/swon_cfp_en.aspx">SWON 2014 CFP</a></li>
+                                        <li><a title="call for papers: EGTA 2014" href="../web/egta_cfp_en.aspx">EGTA 2014 CFP</a></li>
+                                    </ul>
+                                </li>
+                                <li><a title="submission" href="../web/submission_en.aspx">Paper Submission&laquo;</a></li>
+                                <li><a title="date" href="../web/date_en.aspx">Important Dates&laquo;</a></li>
+                                <li id="con2"><a title="program" href="#">Program&laquo;</a>
+                                    <ul style="display: none;" id="u2">
+                                        <li><a title="overview" href="../web/overview_en.aspx">Overview</a></li>
+                                        <li><a title="detail" href="../web/detail_en.aspx">Detail</a></li>
+                                        <li><a title="keynotes" href="../web/keynotes_en.aspx">Keynotes</a></li>
+                                        <li><a title="IndustryKeynote" href="../web/IndustryKeynote_en.aspx">IndustryKeynote</a></li>
+<%--                                        <li><a title="banquet" href="../web/banquet_en.aspx">Banquet</a></li>--%>
+                                    </ul>
+                                </li>
+                                <li id="con3"><a title="information" href="#">Participants&laquo;</a>
+                                    <ul style="display: none;" id="u3">
+                                        <li><a title="accommodations" href="../web/accommodations_en.aspx">Accommodations</a></li>
+                                        <li><a title="conference venue" href="../web/venue_en.aspx">Conference Venue</a></li>
+                                        <li><a title="registration" href="../web/registration_en.aspx">Registration</a></li>
+                                        <li><a title="travel fellowship program" href="../web/travel_en.aspx">Travel Guide</a></li>
+                                    </ul>
+                                </li>
+                                <li><a title="contact us" href="../web/contact_en.aspx">Contact Us&laquo;</a></li>
+                                <li><a title="allcount" href="../web/Statistics_en.aspx" >Visitor No. <asp:Label ID="allcount" runat="server" ForeColor="YellowGreen"></asp:Label>&laquo;</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                    <!--正文-->
+                    <td class="main_nav">
+                        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                        </asp:ContentPlaceHolder>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <br />
+        <center>
+            <div id="footer">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td class="footer_text">© WISA 2014 | Design by NANKAI University</td>
+                    </tr>
+                </table>
+            </div>
+        </center>
+    </div>
+</body>
+</html>
